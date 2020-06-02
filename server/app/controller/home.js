@@ -11,8 +11,9 @@ const Controller = require('egg').Controller
 
 class HomeController extends Controller {
   async index() {
-    const { ctx } = this;
-    ctx.body = 'hi, egg';
+    const { ctx } = this
+    console.log('xxxx')
+    ctx.body = 'hi, egg'
   }
 }
 
