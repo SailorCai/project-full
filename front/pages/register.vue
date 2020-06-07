@@ -27,11 +27,11 @@
       </el-form-item>
 
       <el-form-item prop="password" class label="密码">
-        <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+        <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
       </el-form-item>
 
       <el-form-item prop="repassword" class label="确认密码">
-        <el-input v-model="form.repassword" placeholder="请再次输入密码"></el-input>
+        <el-input v-model="form.repassword" type="password" placeholder="请再次输入密码"></el-input>
       </el-form-item>
 
       <el-form-item prop="repassword" class>
@@ -41,15 +41,17 @@
   </div>
 </template>
 <script>
+import md5 from 'md5'
+
 export default {
   layout: "login",
   data() {
     return {
       form: {
-        email: "",
-        nickname: "",
-        password: "",
-        repassword: "",
+        email: "1187023819@qq.com",
+        nickname: "sailor",
+        password: "123456",
+        repassword: "123456",
         captcha: ""
       },
       rules: {
@@ -73,8 +75,8 @@ export default {
               if (value !== this.form.password) {
                 callback(new Error("两次密码不一致"))
               }
+              callback();
             },
-            message: "请再次输入密码"
           }
         ]
       },
@@ -89,6 +91,24 @@ export default {
         if(valid) {
           console.log('校验成功')
           // @todo 发送请求
+          let obj = {
+            email: this.form.email,
+            nickname: this.form.nickname,
+            password: md5(this.form.password),
+            captcha: this.form.captcha,
+          }
+          let ret = await this.$http.post('/user/register', obj)
+          // code =0就是成功
+          if(ret.code ==0){
+            this.$alert('注册成功', '成功', {
+              confirmButton: '去登陆',
+              callback: () => {
+                this.$router.push('/login')
+              }
+            })
+          }else{
+            this.$message.error(ret.message)
+          }
         }else{
           console.log('校验失败')
         }
