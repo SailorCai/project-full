@@ -1,33 +1,18 @@
-# server
+<!--
+ * @Author: SailorCai
+ * @Date: 2020-05-07 08:38:59
+ * @LastEditors: SailorCai
+ * @LastEditTime: 2020-06-06 16:26:09
+ * @FilePath: /project-full/server/README.md
+-->
 
+{
+code: 0,
+data: {},
+message:
+errors: 是具体的报错信息
+}
+code 0 是成功，其他都是失败
 
-
-## QuickStart
-
-<!-- add docs here for user -->
-
-see [egg docs][egg] for more detail.
-
-### Development
-
-```bash
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
-```
-
-### Deploy
-
-```bash
-$ npm start
-$ npm stop
-```
-
-### npm scripts
-
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
-
-
-[egg]: https://eggjs.org
+-1 是错误
+-666 是登陆状态过期
