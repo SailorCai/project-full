@@ -7,7 +7,7 @@
  */
 'use strict'
 const svgCaptcha = require('svg-captcha')
-
+const fse = require('fs-extra')
 const BaseController = require('./base')
 
 class UtilController extends BaseController {
@@ -22,6 +22,24 @@ class UtilController extends BaseController {
     this.ctx.session.captcha = captcha.text
     this.ctx.response.type = 'image/svg+xml'
     this.ctx.body = captcha.data
+  }
+  async uploadfile() {
+    const { ctx } = this
+    const file = ctx.request.files[0]
+    const { name } = ctx.request.body
+    console.log(name, file)
+
+    // file.filepath 是什么东西，为啥直接move就能保存前端穿过来的图片？
+    console.log('file.filepath', file.filepath)
+    console.log('this.config.UPLOAD_DIR', this.config.UPLOAD_DIR)
+    await fse.move(file.filepath, this.config.UPLOAD_DIR + '/' + file.filename)
+
+    this.success({
+      url: `/public/${file.filename}`,
+    })
+    /* this.success({
+      url: 'xxx',
+    }) */
   }
   async sendcode() {
     const { ctx } = this
